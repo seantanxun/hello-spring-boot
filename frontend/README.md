@@ -5,6 +5,7 @@
 在项目根目录启动 Spring Boot 后端（端口 8080）：
 
 ```powershell
+$env:MONGO_PASSWORD="你的 MongoDB 密码"
 ./mvnw.cmd spring-boot:run
 ```
 

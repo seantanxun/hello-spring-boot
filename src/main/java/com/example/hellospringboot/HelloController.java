@@ -15,6 +15,11 @@ public class HelloController {
 	private static final DateTimeFormatter TIME_FORMATTER =
 			DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
 	private static final Logger log = LoggerFactory.getLogger(HelloController.class);
+	private final TimeRecordRepository timeRecordRepository;
+
+	public HelloController(TimeRecordRepository timeRecordRepository) {
+		this.timeRecordRepository = timeRecordRepository;
+	}
 
 	@GetMapping("/")
 	public String hello() {
@@ -24,6 +29,7 @@ public class HelloController {
 	@GetMapping("/api/time")
 	public Map<String, String> serverTime() {
 		String currentTime = LocalDateTime.now().format(TIME_FORMATTER);
+		timeRecordRepository.save(new TimeRecord(currentTime));
 		log.info("==================================================");
 		log.info("收到前端获取时间请求");
 		log.info("返回服务器时间: {}", currentTime);
